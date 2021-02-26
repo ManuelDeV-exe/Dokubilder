@@ -14,34 +14,8 @@
 * Projekt:          Vereinfachung               *
 * Python-Verion     python-3.9.0                *
 *************************************************
-*            !!!INSTALATION!!!                  *
-*************************************************
-
-Installiere Python.
-Importiere die Libraries Pillow(PIL), OS, tkinter und Shutil.
-Ändere den Pfad zum Server falls gewünscht. 
-Achtung, das r vor dem Pfad wird benötigt!
-Lege einen Ordner mit dem Namen Dokubilder an.
-
-Dieser Ordner muss sich im selben Verzeichnis wie diese Datei befinden.
-Ich Empfehle die Dokumente oder einen Unterordner auf dem Desktop.
-Der Ordner und die Datei müssen Lokal auf dem Rechner liegen.
-
-In PDF Creator den Dokuordner als Standartpfad angeben.
-Die Einstellungen der BilderQualität bleibt gleich.
-Außerdem muss eine Aktion hinzugefügt werden.
-Klicke bei dem Standartprofil auf Aktion hinzufügen und wähle Programm aus.
-Jetzt wähle diese Datei als Programmdatei aus, und bestätige mit OK.
-Beim Zielverzeichnis muss auserdem noch der Hacken bei 
-"Öffne Datei nach Speicher" und bei "Zeige Sofortaktionen an, nachdem die Dokumente konvertiert wurden"
-entfernt werden.
-
-Nachdem du dies gemacht hast sollte alles Fkuntionieren.
-Gehe wie gewohnt auf Drucken und probiere es aus.
-In dem Ordner deiner Wahl sollte sich nun die Gedrehte und herunter gerechnete Doku befinden.
-
-*************************************************
 """
+
 ### Programm Start ###
 from PIL import Image
 import os
@@ -50,17 +24,23 @@ import os.path
 from tkinter import messagebox 
 import tkinter as tk
 
+### Funktionen ###
+
+def Pfad_Bereinigen(pfad):
+    pfad = pfad.replace('\n', '')
+    return pfad
+
 breite = 1024
 hoehe = 724
 
 config = open("config.cfg", "r") # Config lesen
 configArray = config.readlines()
 
-ServerPfad = configArray[1] # Pfad auf Server auf den verschoben werden soll.
+ServerPfad = Pfad_Bereinigen(configArray[1]) # Pfad auf Server auf den verschoben werden soll.
 #Soll das Bild nicht verschoben werden, einfach nichts in die Gänsefüßchen schreiben.
 
-BilderInDokuOrdner = os.listdir(configArray[4]) # Inkrementaler Pfad in den die doku gespeichert wird.
-aktuellerPfad = os.path.abspath("./") # Aktuellen Pfad der Datei festlegen
+BilderInDokuOrdner = os.listdir(Pfad_Bereinigen(configArray[4]))
+aktuellerPfad = os.path.abspath(str(Pfad_Bereinigen(configArray[4]))) # Aktuellen Pfad der Datei festlegen
 aktuellerPfad = aktuellerPfad.replace('\\', '/') # Pfad bereinigen
 FileNotExist = True
 
@@ -73,7 +53,7 @@ schleife = 0
 while schleife < len(BilderInDokuOrdner):
     FileNotExist = True
     
-    BidlerDatei = aktuellerPfad + '/Dokubilder/' + BilderInDokuOrdner[schleife]
+    BidlerDatei = aktuellerPfad + "/" + BilderInDokuOrdner[schleife]
     
     filenameList = aktuellerPfad.split("\\")
     i = len(filenameList)-1 # Die anzahl der Pfadverzeichnisse -1 zur erzeugung des Uhrsprünglichen Bildnamens
@@ -103,7 +83,7 @@ while schleife < len(BilderInDokuOrdner):
         FileNotExist = False
     else:
         os.remove(BidlerDatei) # Original löschen
-        output.save(str(aktuellerPfad)+ '/Dokubilder/' + str(BilderInDokuOrdner[schleife]), optimize=True, quality=100, dpi=(300,300))
+        output.save(str(aktuellerPfad) + "\\" + str(BilderInDokuOrdner[schleife]), optimize=True, quality=100, dpi=(300,300))
     
     if ServerPfad != "" and FileNotExist == True:
         ServerPfad = ServerPfad.replace('\\', '/') # Pfad bereinigen
