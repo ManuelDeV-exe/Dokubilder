@@ -53,13 +53,18 @@ import tkinter as tk
 breite = 1024
 hoehe = 724
 
-ServerPfad = r"C:\Users\Detag\Desktop\Programmieren\test" # Pfad auf Server auf den verschoben werden soll.
+config = open("config.cfg", "r") # Config lesen
+configArray = config.readlines()
+
+ServerPfad = configArray[1] # Pfad auf Server auf den verschoben werden soll.
 #Soll das Bild nicht verschoben werden, einfach nichts in die Gänsefüßchen schreiben.
 
-BilderInDokuOrdner = os.listdir('./Dokubilder') # Inkrementaler Pfad in den die doku gespeichert wird.
+BilderInDokuOrdner = os.listdir(configArray[4]) # Inkrementaler Pfad in den die doku gespeichert wird.
 aktuellerPfad = os.path.abspath("./") # Aktuellen Pfad der Datei festlegen
 aktuellerPfad = aktuellerPfad.replace('\\', '/') # Pfad bereinigen
 FileNotExist = True
+
+config.close()
 
 root = tk.Tk()
 root.withdraw()
