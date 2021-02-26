@@ -30,11 +30,11 @@ def Pfad_Bereinigen(pfad):
     pfad = pfad.replace('\n', '')
     return pfad
 
-breite = 1024
-hoehe = 724
-
 config = open("config.cfg", "r") # Config lesen
 configArray = config.readlines()
+
+breite = int(configArray[7])
+hoehe = int(configArray[10])
 
 ServerPfad = Pfad_Bereinigen(configArray[1]) # Pfad auf Server auf den verschoben werden soll.
 #Soll das Bild nicht verschoben werden, einfach nichts in die Gänsefüßchen schreiben.
