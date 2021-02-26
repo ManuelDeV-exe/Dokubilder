@@ -3,12 +3,12 @@
 *            !!!INFO!!!                         *
 *************************************************
 * Programmname:     Rezise_Doku                 *
-* Version:          1.0                         *
+* Version:          1.3                         *
 * Bescheibung:      Ändert die Größe der        *
 *                   Dokubilder auf 1024x724     *
 *                   und Dreht das Bild um 90°   *
 *                                               *
-* Letzte Änderung:  15.10.2020                  *
+* Letzte Änderung:  26.02.2021                  *
 * Author:           Bücherl Manuel              *
 * Status:           funktionsfähig              *
 * Projekt:          Vereinfachung               *
