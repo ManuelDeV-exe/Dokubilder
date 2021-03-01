@@ -33,15 +33,24 @@ def Pfad_Bereinigen(pfad):
 config = open("config.cfg", "r") # Config lesen
 configArray = config.readlines()
 
-breite = int(configArray[7])
-hoehe = int(configArray[10])
+breite = int(configArray[10])
+hoehe = int(configArray[13])
 
 ServerPfad = Pfad_Bereinigen(configArray[1]) # Pfad auf Server auf den verschoben werden soll.
 #Soll das Bild nicht verschoben werden, einfach nichts in die Gänsefüßchen schreiben.
+if (Pfad_Bereinigen(configArray[4]) == "true"):
+    ServerPfad = ServerPfad.split("\\", 1)
+    ServerPfad[1] = ServerPfad[1].replace('\\', '/') # Pfad bereinigen
+    ServerPfad = ServerPfad[0] + "/" + ServerPfad[1]
+else:
+    ServerPfad = ServerPfad.split("\\", 3)
+    ServerPfad[3] = ServerPfad[3].replace('\\', '/') # Pfad bereinigen
+    ServerPfad = "\\\\" + ServerPfad[2] + "/" + ServerPfad[3]
 
-BilderInDokuOrdner = os.listdir(Pfad_Bereinigen(configArray[4]))
-aktuellerPfad = os.path.abspath(str(Pfad_Bereinigen(configArray[4]))) # Aktuellen Pfad der Datei festlegen
-aktuellerPfad = aktuellerPfad.replace('\\', '/') # Pfad bereinigen
+BilderInDokuOrdner = os.listdir(Pfad_Bereinigen(configArray[7]))
+aktuellerPfad = os.path.abspath(str(Pfad_Bereinigen(configArray[7]))) # Aktuellen Pfad der Datei festlegen
+aktuellerPfad = aktuellerPfad.split("\\", 1)
+aktuellerPfad[1] = aktuellerPfad[1].replace('\\', '/') # Pfad bereinigen
 FileNotExist = True
 
 config.close()
@@ -53,11 +62,7 @@ schleife = 0
 while schleife < len(BilderInDokuOrdner):
     FileNotExist = True
     
-    BidlerDatei = aktuellerPfad + "/" + BilderInDokuOrdner[schleife]
-    
-    filenameList = aktuellerPfad.split("\\")
-    i = len(filenameList)-1 # Die anzahl der Pfadverzeichnisse -1 zur erzeugung des Uhrsprünglichen Bildnamens
-    filename = filenameList[i]
+    BidlerDatei = aktuellerPfad[0] + aktuellerPfad[1] + "/" + BilderInDokuOrdner[schleife]
     
     image1 = Image.open(BidlerDatei)
 
@@ -68,11 +73,10 @@ while schleife < len(BilderInDokuOrdner):
         output = image1.resize((breite, hoehe))
         
         
-    if os.path.isfile(ServerPfad + '/' + BilderInDokuOrdner[schleife]):
+    if os.path.isfile(str(ServerPfad) + '/' + BilderInDokuOrdner[schleife]):
         #str(ServerPfad + '/' + BilderInDokuOrdner[schleife])
         MsgBox = messagebox.askquestion("Datei Existiert bereits!", 'Die Datei: ' + str(ServerPfad + '\\' + BilderInDokuOrdner[schleife]) + ' Überschreiben?') 
         if MsgBox == 'yes':
-            ServerPfad = ServerPfad.replace('\\', '/')
             print(str(ServerPfad + '/' + BilderInDokuOrdner[schleife]))
             os.remove(ServerPfad + '/' + BilderInDokuOrdner[schleife])
             os.remove(BidlerDatei) # Original löschen
@@ -83,10 +87,9 @@ while schleife < len(BilderInDokuOrdner):
         FileNotExist = False
     else:
         os.remove(BidlerDatei) # Original löschen
-        output.save(str(aktuellerPfad) + "\\" + str(BilderInDokuOrdner[schleife]), optimize=True, quality=100, dpi=(300,300))
+        output.save(str(aktuellerPfad[0]+aktuellerPfad[1]) + "\\" + str(BilderInDokuOrdner[schleife]), optimize=True, quality=100, dpi=(300,300))
     
     if ServerPfad != "" and FileNotExist == True:
-        ServerPfad = ServerPfad.replace('\\', '/') # Pfad bereinigen
         shutil.move(BidlerDatei, ServerPfad) 
     
     schleife = schleife + 1
