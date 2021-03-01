@@ -1,21 +1,3 @@
-"""
-*************************************************
-*            !!!INFO!!!                         *
-*************************************************
-* Programmname:     Rezise_Doku                 *
-* Version:          1.3                         *
-* Bescheibung:      Ändert die Größe der        *
-*                   Dokubilder auf 1024x724     *
-*                   und Dreht das Bild um 90°   *
-*                                               *
-* Letzte Änderung:  26.02.2021                  *
-* Author:           Bücherl Manuel              *
-* Status:           funktionsfähig              *
-* Projekt:          Vereinfachung               *
-* Python-Verion     python-3.9.0                *
-*************************************************
-"""
-
 ### Programm Start ###
 from PIL import Image
 import os
