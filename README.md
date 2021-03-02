@@ -3,7 +3,7 @@
 *            !!!INFO!!!                         *
 *************************************************
 * Programmname:     Rezise_Doku                 *
-* Version:          V1.4                         *
+* Version:          V1.41                         *
 * Bescheibung:      Ändert die Größe der        *
 *                   Dokubilder auf 1024x724     *
 *                   und Dreht das Bild um 90°   *

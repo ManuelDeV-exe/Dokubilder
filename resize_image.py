@@ -24,10 +24,6 @@ if (Pfad_Bereinigen(configArray[4]) == "true"):
     ServerPfad = ServerPfad.split("\\", 1)
     ServerPfad[1] = ServerPfad[1].replace('\\', '/') # Pfad bereinigen
     ServerPfad = ServerPfad[0] + "/" + ServerPfad[1]
-else:
-    ServerPfad = ServerPfad.split("\\", 3)
-    ServerPfad[3] = ServerPfad[3].replace('\\', '/') # Pfad bereinigen
-    ServerPfad = "\\\\" + ServerPfad[2] + "/" + ServerPfad[3]
 
 BilderInDokuOrdner = os.listdir(Pfad_Bereinigen(configArray[7]))
 aktuellerPfad = os.path.abspath(str(Pfad_Bereinigen(configArray[7]))) # Aktuellen Pfad der Datei festlegen
@@ -44,7 +40,7 @@ schleife = 0
 while schleife < len(BilderInDokuOrdner):
     FileNotExist = True
     
-    BidlerDatei = aktuellerPfad[0] + aktuellerPfad[1] + "/" + BilderInDokuOrdner[schleife]
+    BidlerDatei = aktuellerPfad[0] + "/" + aktuellerPfad[1] + "/" + BilderInDokuOrdner[schleife]
     
     image1 = Image.open(BidlerDatei)
 
@@ -69,7 +65,7 @@ while schleife < len(BilderInDokuOrdner):
         FileNotExist = False
     else:
         os.remove(BidlerDatei) # Original löschen
-        output.save(str(aktuellerPfad[0]+aktuellerPfad[1]) + "\\" + str(BilderInDokuOrdner[schleife]), optimize=True, quality=100, dpi=(300,300))
+        output.save(str(aktuellerPfad[0]+ "/" +aktuellerPfad[1]) + "/" + str(BilderInDokuOrdner[schleife]), optimize=True, quality=100, dpi=(300,300))
     
     if ServerPfad != "" and FileNotExist == True:
         shutil.move(BidlerDatei, ServerPfad) 
