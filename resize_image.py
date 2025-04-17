@@ -38,7 +38,7 @@ root.withdraw()
 
 for i, img in enumerate(BilderInDokuOrdner):
     if len(img)>25:
-        os.rename(aktuellerPfad[0] + "/" + aktuellerPfad[1] + "/" + img, aktuellerPfad[0] + "/" + aktuellerPfad[1] + "/" + img[:20] + "_" + i + ".jpg",)
+        os.rename(aktuellerPfad[0] + "/" + aktuellerPfad[1] + "/" + img, aktuellerPfad[0] + "/" + aktuellerPfad[1] + "/" + img[:20] + "_" + str(i) + ".jpg",)
 
 BilderInDokuOrdner = os.listdir(Pfad_Bereinigen(configArray[7]))
 
