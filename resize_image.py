@@ -36,9 +36,9 @@ config.close()
 root = tk.Tk()
 root.withdraw()
 
-for img in BilderInDokuOrdner:
+for i, img in enumerate(BilderInDokuOrdner):
     if len(img)>25:
-        os.rename(aktuellerPfad[0] + "/" + aktuellerPfad[1] + "/" + img, aktuellerPfad[0] + "/" + aktuellerPfad[1] + "/" + img[:25] + ".jpg",)
+        os.rename(aktuellerPfad[0] + "/" + aktuellerPfad[1] + "/" + img, aktuellerPfad[0] + "/" + aktuellerPfad[1] + "/" + img[:20] + "_" + i + ".jpg",)
 
 BilderInDokuOrdner = os.listdir(Pfad_Bereinigen(configArray[7]))
 
