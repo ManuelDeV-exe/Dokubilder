@@ -36,6 +36,12 @@ config.close()
 root = tk.Tk()
 root.withdraw()
 
+for img in BilderInDokuOrdner:
+    if len(img)>25:
+        os.rename(aktuellerPfad[0] + "/" + aktuellerPfad[1] + "/" + img, aktuellerPfad[0] + "/" + aktuellerPfad[1] + "/" + img[:25] + ".jpg",)
+
+BilderInDokuOrdner = os.listdir(Pfad_Bereinigen(configArray[7]))
+
 schleife = 0
 while schleife < len(BilderInDokuOrdner):
     FileNotExist = True
